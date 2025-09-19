@@ -1,103 +1,217 @@
+import Link from "next/link";
 import Image from "next/image";
+import { MoneyIcon, ShieldIcon, CommunityIcon, LicenseIcon, PhoneIcon, CarIcon, CheckIcon } from "@/components/icons";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <section className="section-gradient">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-20">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Safe rides for women in Kigali</h1>
+              <p className="text-black/70 dark:text-white/80 text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability—day or night.</p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="#download" className="inline-flex items-center justify-center rounded-lg bg-black text-white px-6 py-3 text-sm font-medium hover:bg-black/90">Download the app</Link>
+                <Link href="/drive" className="inline-flex items-center justify-center rounded-lg border border-black/15 dark:border-white/20 px-6 py-3 text-sm font-medium hover:bg-white/5">Drive with SheMoves</Link>
+              </div>
+            </div>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
+              <Image src="/images/happy young Rwandan woman seated on driver's seat in a car.jpg" alt="Woman driver in car" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" priority />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="bg-black text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold">Numbers that matter</h2>
+            <p className="mt-4 text-white/70 max-w-2xl mx-auto">Trusted by thousands of riders and drivers across Kigali</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Card 1 */}
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+              <div className="flex items-baseline justify-between">
+                <p className="text-3xl font-bold">250+</p>
+                <span className="text-xs text-green-400">+8% m/m</span>
+              </div>
+              <p className="mt-1 text-sm text-white/70">Active women drivers</p>
+              <svg className="mt-4 h-12 w-full" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden>
+                <defs>
+                  <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(34,197,94,0.6)" />
+                    <stop offset="100%" stopColor="rgba(34,197,94,0)" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 15 L10 14 L20 13 L30 12 L40 11 L50 10 L60 9 L70 8 L80 7 L90 6 L100 5" stroke="#22c55e" strokeWidth="2" fill="url(#g1)" />
+              </svg>
+            </div>
+            {/* Card 2 */}
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+              <div className="flex items-baseline justify-between">
+                <p className="text-3xl font-bold">120k</p>
+                <span className="text-xs text-green-400">+12% y/y</span>
+              </div>
+              <p className="mt-1 text-sm text-white/70">Safe rides completed</p>
+              <svg className="mt-4 h-12 w-full" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden>
+                <path d="M0 18 L10 17 L20 15 L30 16 L40 14 L50 12 L60 13 L70 11 L80 9 L90 10 L100 8" stroke="#60a5fa" strokeWidth="2" fill="none" />
+              </svg>
+            </div>
+            {/* Card 3 */}
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+              <div className="flex items-baseline justify-between">
+                <p className="text-3xl font-bold">4.9★</p>
+                <span className="text-xs text-emerald-400">+0.1</span>
+              </div>
+              <p className="mt-1 text-sm text-white/70">Average rider rating</p>
+              <svg className="mt-4 h-12 w-full" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden>
+                <path d="M0 8 L10 9 L20 8 L30 7 L40 8 L50 7 L60 6 L70 7 L80 6 L90 7 L100 6" stroke="#facc15" strokeWidth="2" fill="none" />
+              </svg>
+            </div>
+            {/* Card 4 */}
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+              <div className="flex items-baseline justify-between">
+                <p className="text-3xl font-bold">24/7</p>
+                <span className="text-xs text-white/70">support</span>
+              </div>
+              <p className="mt-1 text-sm text-white/70">Human phone support</p>
+              <svg className="mt-4 h-12 w-full" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden>
+                <rect x="0" y="5" width="100" height="10" rx="2" fill="#334155" />
+                <rect x="5" y="7" width="12" height="6" rx="1" fill="#22c55e" />
+                <rect x="22" y="7" width="12" height="6" rx="1" fill="#22c55e" />
+                <rect x="39" y="7" width="12" height="6" rx="1" fill="#22c55e" />
+                <rect x="56" y="7" width="12" height="6" rx="1" fill="#22c55e" />
+                <rect x="73" y="7" width="12" height="6" rx="1" fill="#22c55e" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-gradient">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold">Why drive with SheMoves?</h2>
+            <p className="mt-4 text-white/80 max-w-2xl mx-auto">Join hundreds of women earning on their own schedule while making Kigali safer for everyone.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: "Flexible earnings", desc: "Set your own hours and earn up to 50,000 RWF per day. Keep 85% of every fare.", icon: MoneyIcon },
+              { title: "Safety first", desc: "Rigorous background checks, in-app SOS, and 24/7 support for your peace of mind.", icon: ShieldIcon },
+              { title: "Supportive community", desc: "Join a network of women drivers with training, mentorship, and peer support.", icon: CommunityIcon },
+            ].map((c) => (
+              <div key={c.title} className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6 transition-all hover:bg-white/10 hover:shadow-xl">
+                <div className="w-12 h-12 rounded-xl bg-white/10 text-white flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <c.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-semibold">{c.title}</h3>
+                <p className="mt-2 text-sm text-white/70">{c.desc}</p>
+                <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/5" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-gradient">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6">Real driver stories</h2>
+              <div className="space-y-6">
+                <div className="border-l-4 border-white pl-6">
+                  <p className="text-white/80 italic">&ldquo;SheMoves gave me the freedom to work around my children&apos;s schedule while earning more than my previous job. The safety features give me confidence every day.&rdquo;</p>
+                  <p className="mt-2 font-semibold">— Grace M., Driver since 2023</p>
+                </div>
+                <div className="border-l-4 border-white pl-6">
+                  <p className="text-white/80 italic">&ldquo;I love being part of a community that empowers women. The training and support helped me become a confident driver.&rdquo;</p>
+                  <p className="mt-2 font-semibold">— Alice K., Driver since 2022</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
+              <Image src="/images/happy young Rwandan woman seated on driver's seat in a car driving clients.jpg" alt="Woman driver at work" fill className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-black text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Ready to start driving?</h2>
+            <p className="mt-3 text-white/70">Join SheMoves today and start earning on your schedule.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-10 items-start">
+            <div>
+              <h3 className="text-2xl font-semibold mb-5">Requirements</h3>
+              <ul className="space-y-3 text-white/80">
+                {[
+                  { text: "Valid driver's license (2+ years experience)", icon: LicenseIcon },
+                  { text: "Clean driving record", icon: CheckIcon },
+                  { text: "Reliable vehicle (2010 or newer)", icon: CarIcon },
+                  { text: "Smartphone with data plan", icon: PhoneIcon },
+                ].map((item) => (
+                  <li key={item.text} className="flex items-center gap-3">
+                    <span className="grid place-items-center w-6 h-6 rounded-full bg-green-500 text-white">
+                      <item.icon className="w-4 h-4" />
+                    </span>
+                    {item.text}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 grid sm:grid-cols-3 gap-3">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-center">
+                  <p className="text-sm text-white/60">Onboarding</p>
+                  <p className="font-semibold">1–3 days</p>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-center">
+                  <p className="text-sm text-white/60">Payouts</p>
+                  <p className="font-semibold">Weekly</p>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-center">
+                  <p className="text-sm text-white/60">Support</p>
+                  <p className="font-semibold">24/7</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-tr from-green-500/20 to-emerald-500/10 blur-xl rounded-3xl" aria-hidden />
+              <div className="relative rounded-3xl p-8 ring-1 ring-white/10 shadow-lg bg-white/5 backdrop-blur">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-semibold">Average earnings</h3>
+                  <span className="text-xs px-2 py-1 rounded-full bg-green-600 text-white">Indicative</span>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-6 items-center">
+                  <div>
+                    <p className="text-4xl font-extrabold text-green-400">45,000 RWF</p>
+                    <p className="text-sm text-white/70">per day (8 hours)</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 p-4 bg-white/5 text-center">
+                    <p className="text-2xl font-bold">315,000 RWF</p>
+                    <p className="text-sm text-white/70">per week</p>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid sm:grid-cols-2 gap-3">
+                  <Link href="/drive" className="inline-flex items-center justify-center rounded-lg bg-white text-black px-6 py-3 font-medium hover:bg-white/90 shadow">
+                    Apply to drive
+                  </Link>
+                  <Link href="/about" className="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 font-medium hover:bg-white/5">
+                    Learn more
+                  </Link>
+                </div>
+
+                <p className="mt-3 text-xs text-white/60">Actual earnings vary by time, location, and demand.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
