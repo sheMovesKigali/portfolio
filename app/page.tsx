@@ -10,7 +10,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Safe rides for women in Kigali</h1>
-              <p className="text-black/70 dark:text-white/80 text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability—day or night.</p>
+              <p className="text-black/70 dark:text-white/80 text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability day or night.</p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link href="#download" className="inline-flex items-center justify-center rounded-lg bg-black text-white px-6 py-3 text-sm font-medium hover:bg-black/90">Download the app</Link>
                 <Link href="/drive" className="inline-flex items-center justify-center rounded-lg border border-black/15 dark:border-white/20 px-6 py-3 text-sm font-medium hover:bg-white/5">Drive with SheMoves</Link>
@@ -90,6 +90,108 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Positioning & Messaging Section */}
+      <section className="section-gradient">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white">
+              Our Mission & Vision
+            </h2>
+            <p className="mt-6 text-white/80 text-lg max-w-3xl mx-auto leading-relaxed">
+              More than just transport we are building trust, empowerment, and community in Kigali.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+            {/* Positioning */}
+            <div className="group relative h-full">
+              <div className="relative rounded-3xl border border-white/10 bg-white/[0.08] backdrop-blur-xl p-8 transition-all duration-300 hover:bg-white/[0.12] hover:border-white/20 hover:shadow-2xl h-full flex flex-col">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-white/10">
+                  <ShieldIcon className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-6 text-white">Our Positioning</h3>
+                <div className="space-y-5 flex-grow">
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <p className="text-sm font-semibold text-white mb-2">Core Promise</p>
+                    <p className="text-white/90 leading-relaxed">Safe, respectful, and reliable rides by women drivers, for everyone with emphasis on women&apos;s comfort & empowerment.</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <p className="text-sm font-semibold text-white mb-2">Differentiator</p>
+                    <p className="text-white/90 leading-relaxed">Unlike Uber/Bolt/Yego, SheMoves isn&apos;t just about transport it&apos;s about trust + empowerment.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Messaging Pillars */}
+            <div className="group relative h-full">
+              <div className="relative rounded-3xl border border-white/10 bg-white/[0.08] backdrop-blur-xl p-8 transition-all duration-300 hover:bg-white/[0.12] hover:border-white/20 hover:shadow-2xl h-full flex flex-col">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-white/10">
+                  <CommunityIcon className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-6 text-white">Messaging Pillars</h3>
+                <div className="space-y-4 flex-grow">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Safety</p>
+                      <p className="text-white/90 text-sm leading-relaxed">Vetted drivers, respectful rides, peace of mind day & night.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Women&apos;s Empowerment</p>
+                      <p className="text-white/90 text-sm leading-relaxed">Every ride supports women drivers earning fair income.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Community</p>
+                      <p className="text-white/90 text-sm leading-relaxed">Built for Kigali, by Kigali women, rooted in local culture.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Target Audiences */}
+            <div className="group relative h-full">
+              <div className="relative rounded-3xl border border-white/10 bg-white/[0.08] backdrop-blur-xl p-8 transition-all duration-300 hover:bg-white/[0.12] hover:border-white/20 hover:shadow-2xl h-full flex flex-col">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-white/10">
+                  <MoneyIcon className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-6 text-white">Target Audiences</h3>
+                <div className="space-y-4 flex-grow">
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-white/60"></div>
+                      <p className="font-semibold text-white">Riders</p>
+                    </div>
+                    <p className="text-white/90 text-sm leading-relaxed">Women (especially students, professionals, expats) who want a safer option, plus allies who support the mission.</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-white/60"></div>
+                      <p className="font-semibold text-white">Drivers</p>
+                    </div>
+                    <p className="text-white/90 text-sm leading-relaxed">Women who want flexible, dignified, and fair-paying work.</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-white/60"></div>
+                      <p className="font-semibold text-white">Partners/Investors</p>
+                    </div>
+                    <p className="text-white/90 text-sm leading-relaxed">Feminist orgs, local government, women&apos;s economic empowerment donors.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section-gradient">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="text-center mb-12">
@@ -98,7 +200,7 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: "Flexible earnings", desc: "Set your own hours and earn up to 50,000 RWF per day. Keep 85% of every fare.", icon: MoneyIcon },
+              { title: "Flexible earnings", desc: "Set your own hours and earn up per day. Keep 85% of every fare.", icon: MoneyIcon },
               { title: "Safety first", desc: "Rigorous background checks, in-app SOS, and 24/7 support for your peace of mind.", icon: ShieldIcon },
               { title: "Supportive community", desc: "Join a network of women drivers with training, mentorship, and peer support.", icon: CommunityIcon },
             ].map((c) => (

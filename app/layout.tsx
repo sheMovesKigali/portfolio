@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { template: "%s | SheMoves Kigali", default: "SheMoves Kigali — Safe rides" },
+  title: { template: "%s | SheMoves Kigali", default: "SheMoves Kigali Safe rides" },
   description: "Safe, reliable rides for women in Kigali. Join as a driver or ride today.",
 };
 

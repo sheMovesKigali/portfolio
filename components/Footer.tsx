@@ -7,13 +7,13 @@ export default function Footer() {
                 <div className="grid md:grid-cols-3 gap-8">
                     <div>
                         <p className="text-sm font-semibold">SheMoves Kigali</p>
-                        <p className="text-xs text-white/60">Safe, reliable rides—by women, for women.</p>
+                        <p className="text-xs text-white/60">Safe, reliable rides by women, for women.</p>
                     </div>
 
                     <div>
                         <h3 className="text-sm font-semibold">Contact</h3>
                         <ul className="mt-3 space-y-1 text-xs text-white/70">
-                            <li>Email: <a href="mailto:nshutikarake.nk@gmail.com" className="underline decoration-white/30 hover:decoration-white">kayiganwa04@gmail.com</a></li>
+                            <li>Email: <a href="mailto:nshutikarake.nk@gmail.com" className="underline decoration-white/30 hover:decoration-white">shemoveskigali@gmail.com</a></li>
                             <li>Phone: <a href="tel:+250 793 146 889" className="underline decoration-white/30 hover:decoration-white">+250 793 146 889</a></li>
                             <li>Address: KG 7 Ave, Kigali, Rwanda</li>
                         </ul>

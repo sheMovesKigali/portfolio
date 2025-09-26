@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: 'SheMoves Contact <onboarding@resend.dev>', // You can change this to your domain
-      to: ['kayiganwa04@gmail.com'], // Your email
+      to: ['shemoveskigali@gmail.com'], // Your email
       subject: `New Contact Form Submission from ${name}`,
       html: emailHtml,
     });
