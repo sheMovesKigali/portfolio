@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckIcon } from "@/components/icons";
 
-export default function DonateSuccessPage() {
+function DonateSuccessContent() {
   const searchParams = useSearchParams();
   const [amount, setAmount] = useState("");
   const [currency, setCurrency] = useState("RWF");
@@ -140,5 +140,22 @@ export default function DonateSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DonateSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+            <CheckIcon className="w-10 h-10 text-white" />
+          </div>
+          <p className="text-white/80">Loading...</p>
+        </div>
+      </div>
+    }>
+      <DonateSuccessContent />
+    </Suspense>
   );
 }

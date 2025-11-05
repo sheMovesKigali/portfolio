@@ -9,7 +9,6 @@ export default function BookPage() {
   const [rideType, setRideType] = useState<RideType>("standard");
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
-  const [bookingCode, setBookingCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [rideDate, setRideDate] = useState("");
@@ -201,7 +200,7 @@ export default function BookPage() {
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold mb-6">Book Your Ride</h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Choose your ride type and we'll connect you with a trusted woman driver
+            Choose your ride type and we&apos;ll connect you with a trusted woman driver
           </p>
         </div>
 
@@ -341,7 +340,7 @@ export default function BookPage() {
                     className="w-full p-3 rounded-lg border border-white/10 bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   />
                   <p className="text-xs text-white/60 mt-1">
-                    We'll send your booking confirmation to this email
+                    We&apos;ll send your booking confirmation to this email
                   </p>
                 </div>
 

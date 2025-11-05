@@ -54,10 +54,10 @@ export async function POST(req: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Stripe error:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to create payment intent" },
+      { error: error instanceof Error ? error.message : "Failed to create payment intent" },
       { status: 500 }
     );
   }

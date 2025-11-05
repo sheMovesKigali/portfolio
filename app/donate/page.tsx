@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { MoneyIcon, CheckIcon } from "@/components/icons";
@@ -87,12 +87,6 @@ export default function DonatePage() {
     RWF: [10000, 25000, 50000, 100000, 250000],
     USD: [10, 25, 50, 100, 250],
     EUR: [10, 20, 50, 100, 200],
-  };
-
-  const currencySymbols: Record<Currency, string> = {
-    RWF: "RWF",
-    USD: "$",
-    EUR: "€",
   };
 
   const minimumAmounts: Record<Currency, number> = {
