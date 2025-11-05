@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { ContactFormEmail } from '../../../emails/ContactFormEmail';
 import { render } from '@react-email/render';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Create SMTP transporter
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: process.env.SMTP_PORT === '465',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,20 +29,16 @@ export async function POST(request: NextRequest) {
     // Render the email template
     const emailHtml = await render(ContactFormEmail({ name, email, message }));
 
-    // Send email using Resend
-    const { data, error } = await resend.emails.send({
-      from: 'SheMoves Contact <onboarding@resend.dev>', // You can change this to your domain
-      to: ['shemoveskigali@gmail.com'], // Your email
+    // Send email using SMTP
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM || 'SheMoves Contact <noreply@shemoves.rw>',
+      to: process.env.ADMIN_EMAIL || 'shemoveskigali@gmail.com',
+      replyTo: email, // Allow admin to reply directly to the sender
       subject: `New Contact Form Submission from ${name}`,
       html: emailHtml,
     });
 
-    if (error) {
-      console.error('Resend error:', error);
-      throw new Error('Failed to send email');
-    }
-
-    console.log('Email sent successfully:', data);
+    console.log('Contact email sent successfully');
 
     return NextResponse.json(
       { message: 'Message sent successfully!' },

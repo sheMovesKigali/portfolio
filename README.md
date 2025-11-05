@@ -79,9 +79,6 @@ yarn install
 Create a `.env.local` file in the root directory:
 
 ```env
-# Email Configuration
-RESEND_API_KEY=your_resend_api_key_here
-
 # Optional: Custom domain for emails
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
