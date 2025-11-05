@@ -21,6 +21,8 @@ export default function Navbar() {
                     <nav className="flex items-center gap-1">
                         <NavLink href="/" label="Home" />
                         <NavLink href="/about" label="About" />
+                        <NavLink href="/book" label="Book Ride" />
+                        <NavLink href="/donate" label="Donate" />
                         <NavLink href="/contact" label="Contact" />
                         <NavLink href="/drive" label="Drive" />
                     </nav>

@@ -33,6 +33,8 @@ export default function Footer() {
                 <div className="mt-8 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
                     <nav className="flex flex-wrap gap-4 text-sm text-white/80">
                         <Link href="/about" className="hover:underline">About</Link>
+                        <Link href="/book" className="hover:underline">Book Ride</Link>
+                        <Link href="/donate" className="hover:underline">Donate</Link>
                         <Link href="/contact" className="hover:underline">Contact</Link>
                         <Link href="/drive" className="hover:underline">Drive with us</Link>
                     </nav>

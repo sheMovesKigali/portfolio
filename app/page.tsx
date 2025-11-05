@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MoneyIcon, ShieldIcon, CommunityIcon, LicenseIcon, PhoneIcon, CarIcon, CheckIcon } from "@/components/icons";
+import AnimatedHeroText from "@/components/AnimatedHeroText";
 
 export default function Home() {
   return (
@@ -9,10 +10,14 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Safe rides for women in Kigali</h1>
+              <AnimatedHeroText
+                staticText="Safe rides that"
+                rotatingWords={["Empower", "Protect", "Inspire", "Connect"]}
+                className="text-5xl md:text-6xl font-bold tracking-tight"
+              />
               <p className="text-black/70 dark:text-white/80 text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability day or night.</p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="#download" className="inline-flex items-center justify-center rounded-lg bg-black text-white px-6 py-3 text-sm font-medium hover:bg-black/90">Download the app</Link>
+                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-black text-white px-6 py-3 text-sm font-medium hover:bg-black/90">Book a Ride</Link>
                 <Link href="/drive" className="inline-flex items-center justify-center rounded-lg border border-black/15 dark:border-white/20 px-6 py-3 text-sm font-medium hover:bg-white/5">Drive with SheMoves</Link>
               </div>
             </div>
@@ -85,6 +90,68 @@ export default function Home() {
                 <rect x="56" y="7" width="12" height="6" rx="1" fill="#22c55e" />
                 <rect x="73" y="7" width="12" height="6" rx="1" fill="#22c55e" />
               </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* No Surcharges Section */}
+      <section className="relative overflow-hidden py-16 sm:py-20">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-orange-500/10" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-orange-500/5 backdrop-blur-sm p-8 sm:p-12">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-2 mb-6">
+                  <svg className="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-sm font-semibold text-amber-700 dark:text-amber-400">Transparent Pricing</span>
+                </div>
+                <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+                  No Surcharges{" "}
+                  <span className="text-amber-600 dark:text-amber-400">Ever</span>
+                </h2>
+                <p className="text-lg text-black/70 dark:text-white/80 mb-6">
+                  What you see is what you pay. No peak hour charges, no hidden fees, no surprises. Just fair, transparent pricing every single ride.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <CheckIcon className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Same price, always</p>
+                      <p className="text-sm text-black/60 dark:text-white/70">No surge pricing during rush hours or events</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckIcon className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">No booking fees</p>
+                      <p className="text-sm text-black/60 dark:text-white/70">The price you see upfront is your final cost</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckIcon className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Fair for everyone</p>
+                      <p className="text-sm text-black/60 dark:text-white/70">Riders save money, drivers earn fairly</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="aspect-square rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20 p-8 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl sm:text-7xl font-bold text-amber-600 dark:text-amber-400 mb-4">
+                      0%
+                    </div>
+                    <p className="text-xl font-semibold text-black/80 dark:text-white/90">Surge Pricing</p>
+                    <p className="text-sm text-black/60 dark:text-white/70 mt-2">Rain or shine, day or night</p>
+                  </div>
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-amber-500/20 rounded-full blur-2xl" />
+                <div className="absolute -top-4 -left-4 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl" />
+              </div>
             </div>
           </div>
         </div>
