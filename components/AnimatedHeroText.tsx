@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 interface AnimatedHeroTextProps {
   staticText: string;
   rotatingWords: string[];
+  endingText?: string;
   className?: string;
 }
 
-export default function AnimatedHeroText({ staticText, rotatingWords, className = "" }: AnimatedHeroTextProps) {
+export default function AnimatedHeroText({ staticText, rotatingWords, endingText, className = "" }: AnimatedHeroTextProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -39,6 +40,7 @@ export default function AnimatedHeroText({ staticText, rotatingWords, className 
       >
         {rotatingWords[currentWordIndex]}
       </span>
+      {endingText && <span className="font-bold"> {endingText}</span>}
     </h1>
   );
 }

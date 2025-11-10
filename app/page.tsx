@@ -13,6 +13,7 @@ export default function Home() {
               <AnimatedHeroText
                 staticText="Safe rides that"
                 rotatingWords={["Empower", "Protect", "Inspire", "Connect"]}
+                endingText="women"
                 className="text-5xl md:text-6xl font-bold tracking-tight"
               />
               <p className="text-black/70 dark:text-white/80 text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability day or night.</p>
@@ -267,7 +268,7 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: "Flexible earnings", desc: "Set your own hours and earn up per day. Keep 85% of every fare.", icon: MoneyIcon },
+              { title: "Flexible earnings", desc: "Set your own hours and earn up per day. Keep 80% of every fare.", icon: MoneyIcon },
               { title: "Safety first", desc: "Rigorous background checks, in-app SOS, and 24/7 support for your peace of mind.", icon: ShieldIcon },
               { title: "Supportive community", desc: "Join a network of women drivers with training, mentorship, and peer support.", icon: CommunityIcon },
             ].map((c) => (
@@ -351,22 +352,43 @@ export default function Home() {
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-tr from-green-500/20 to-emerald-500/10 blur-xl rounded-3xl" aria-hidden />
               <div className="relative rounded-3xl p-8 ring-1 ring-white/10 shadow-lg bg-white/5 backdrop-blur">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold">Average earnings</h3>
-                  <span className="text-xs px-2 py-1 rounded-full bg-green-600 text-white">Indicative</span>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-semibold">Driver Benefits</h3>
+                  <span className="text-xs px-2 py-1 rounded-full bg-green-600 text-white">Premium</span>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-6 items-center">
-                  <div>
-                    <p className="text-4xl font-extrabold text-green-400">45,000 RWF</p>
-                    <p className="text-sm text-white/70">per day (8 hours)</p>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
+                    <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">Competitive Earnings</p>
+                      <p className="text-xs text-white/70">Keep 80% of every fare you earn</p>
+                    </div>
                   </div>
-                  <div className="rounded-xl border border-white/10 p-4 bg-white/5 text-center">
-                    <p className="text-2xl font-bold">315,000 RWF</p>
-                    <p className="text-sm text-white/70">per week</p>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
+                    <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">Flexible Schedule</p>
+                      <p className="text-xs text-white/70">Work when you want, as much as you want</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
+                    <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">Weekly Payouts</p>
+                      <p className="text-xs text-white/70">Get paid every week, no delays</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
+                    <CheckIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-sm">24/7 Support</p>
+                      <p className="text-xs text-white/70">Always here when you need us</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="mt-6 grid sm:grid-cols-2 gap-3">
+                <div className="grid sm:grid-cols-2 gap-3">
                   <Link href="/drive" className="inline-flex items-center justify-center rounded-lg bg-white text-black px-6 py-3 font-medium hover:bg-white/90 shadow">
                     Apply to drive
                   </Link>
@@ -374,8 +396,6 @@ export default function Home() {
                     Learn more
                   </Link>
                 </div>
-
-                <p className="mt-3 text-xs text-white/60">Actual earnings vary by time, location, and demand.</p>
               </div>
             </div>
           </div>

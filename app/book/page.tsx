@@ -18,6 +18,7 @@ export default function BookPage() {
   const [submitted, setSubmitted] = useState(false);
   const [generatedCode, setGeneratedCode] = useState("");
   const [error, setError] = useState("");
+  const [loadingLocation, setLoadingLocation] = useState(false);
 
   const rideTypes = [
     {
@@ -48,6 +49,68 @@ export default function BookPage() {
     const prefix = rideTypes.find((r) => r.id === type)?.code || "RIDE";
     const random = Math.random().toString(36).substring(2, 8).toUpperCase();
     return `${prefix}-${random}`;
+  };
+
+  const getCurrentLocation = async () => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setLoadingLocation(true);
+    setError("");
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          // Use reverse geocoding to get address from coordinates
+          // Using a free geocoding service (Nominatim)
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`
+          );
+
+          const data = await response.json();
+
+          if (data.display_name) {
+            setPickupLocation(data.display_name);
+          } else {
+            setPickupLocation(`${latitude}, ${longitude}`);
+          }
+        } catch (err) {
+          console.error("Geocoding error:", err);
+          // Fallback to coordinates if geocoding fails
+          setPickupLocation(`${latitude}, ${longitude}`);
+        } finally {
+          setLoadingLocation(false);
+        }
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        setLoadingLocation(false);
+
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setError("Location access denied. Please enable location permissions in your browser.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setError("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            setError("Location request timed out.");
+            break;
+          default:
+            setError("An error occurred while getting your location.");
+            break;
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -262,14 +325,38 @@ export default function BookPage() {
                 {/* Location Fields */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Pickup Location</label>
-                  <input
-                    type="text"
-                    value={pickupLocation}
-                    onChange={(e) => setPickupLocation(e.target.value)}
-                    placeholder="Enter pickup address or landmark"
-                    className="w-full p-3 rounded-lg border border-white/10 bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={pickupLocation}
+                      onChange={(e) => setPickupLocation(e.target.value)}
+                      placeholder="Enter pickup address or landmark"
+                      className="w-full p-3 pr-12 rounded-lg border border-white/10 bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={getCurrentLocation}
+                      disabled={loadingLocation}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md hover:bg-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      title="Use my current location"
+                    >
+                      {loadingLocation ? (
+                        <svg className="animate-spin h-5 w-5 text-amber-500" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                  <p className="text-xs text-white/60 mt-1">
+                    Click the location icon to use your current location
+                  </p>
                 </div>
 
                 <div>
