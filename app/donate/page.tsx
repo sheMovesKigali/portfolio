@@ -202,11 +202,10 @@ export default function DonatePage() {
                             setSelectedAmount(presetAmounts[curr][2]); // Set to middle amount
                             setCustomAmount("");
                           }}
-                          className={`p-3 rounded-lg border-2 font-semibold transition-all ${
-                            currency === curr
-                              ? "border-amber-500 bg-amber-500/10 text-amber-500"
-                              : "border-white/10 hover:border-white/20"
-                          }`}
+                          className={`p-3 rounded-lg border-2 font-semibold transition-all ${currency === curr
+                            ? "border-amber-500 bg-amber-500/10 text-amber-500"
+                            : "border-white/10 hover:border-white/20"
+                            }`}
                         >
                           {curr}
                         </button>
@@ -223,11 +222,10 @@ export default function DonatePage() {
                           key={amount}
                           type="button"
                           onClick={() => setSelectedAmount(amount)}
-                          className={`p-4 rounded-lg border-2 font-semibold transition-all ${
-                            selectedAmount === amount
-                              ? "border-amber-500 bg-amber-500/10 text-amber-500"
-                              : "border-white/10 hover:border-white/20"
-                          }`}
+                          className={`p-4 rounded-lg border-2 font-semibold transition-all ${selectedAmount === amount
+                            ? "border-amber-500 bg-amber-500/10 text-amber-500"
+                            : "border-white/10 hover:border-white/20"
+                            }`}
                         >
                           {amount.toLocaleString()}
                         </button>
@@ -235,11 +233,10 @@ export default function DonatePage() {
                       <button
                         type="button"
                         onClick={() => setSelectedAmount("custom")}
-                        className={`p-4 rounded-lg border-2 font-semibold transition-all ${
-                          selectedAmount === "custom"
-                            ? "border-amber-500 bg-amber-500/10 text-amber-500"
-                            : "border-white/10 hover:border-white/20"
-                        }`}
+                        className={`p-4 rounded-lg border-2 font-semibold transition-all ${selectedAmount === "custom"
+                          ? "border-amber-500 bg-amber-500/10 text-amber-500"
+                          : "border-white/10 hover:border-white/20"
+                          }`}
                       >
                         Custom
                       </button>
@@ -349,41 +346,34 @@ export default function DonatePage() {
           {/* Impact Sidebar */}
           <div className="space-y-6">
             <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
-              <h3 className="text-xl font-bold mb-4">Your Impact</h3>
+              <h3 className="text-xl font-bold mb-4">Your Impact Fuels Her Journey</h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-sm">10,000 RWF</p>
-                    <p className="text-xs text-white/70">Safety vest for one driver</p>
+                    <p className="font-semibold text-sm">Start the Engine</p>
+                    <p className="text-xs text-white/70">Help one woman begin her driver training.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-sm">25,000 RWF</p>
-                    <p className="text-xs text-white/70">First aid kit for a vehicle</p>
+                    <p className="font-semibold text-sm">Drive Change</p>
+                    <p className="text-xs text-white/70">Empower a survivor to earn her independence</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-sm">50,000 RWF</p>
-                    <p className="text-xs text-white/70">One week of training for new driver</p>
+                    <p className="font-semibold text-sm">Keep Her Moving</p>
+                    <p className="text-xs text-white/70">Support vehicle maintenance and safety equipment.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckIcon className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-sm">100,000 RWF</p>
-                    <p className="text-xs text-white/70">Vehicle maintenance support</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckIcon className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-sm">250,000 RWF</p>
-                    <p className="text-xs text-white/70">Full driver certification program</p>
+                    <p className="font-semibold text-sm">Expand the Road Ahead</p>
+                    <p className="text-xs text-white/70">Help SheMoves reach more communities.</p>
                   </div>
                 </div>
               </div>

@@ -40,7 +40,7 @@ export default function Home() {
             {/* Card 1 */}
             <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
               <div className="flex items-baseline justify-between">
-                <p className="text-3xl font-bold">250+</p>
+                <p className="text-3xl font-bold">50+</p>
                 <span className="text-xs text-green-400">+8% m/m</span>
               </div>
               <p className="mt-1 text-sm text-white/70">Active women drivers</p>
@@ -57,7 +57,7 @@ export default function Home() {
             {/* Card 2 */}
             <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
               <div className="flex items-baseline justify-between">
-                <p className="text-3xl font-bold">120k</p>
+                <p className="text-3xl font-bold">11k</p>
                 <span className="text-xs text-green-400">+12% y/y</span>
               </div>
               <p className="mt-1 text-sm text-white/70">Safe rides completed</p>
@@ -185,7 +185,7 @@ export default function Home() {
                   </div>
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                     <p className="text-sm font-semibold text-white mb-2">Differentiator</p>
-                    <p className="text-white/90 leading-relaxed">Unlike other ride sharing, SheMoves isn&apos;t just about transport it&apos;s about trust + empowerment.</p>
+                    <p className="text-white/90 leading-relaxed">SheMoves isn’t just a transport service  it’s a movement. Our platform connects women with safe, private, and respectful rides while creating sustainable livelihoods for those most excluded. Every trip moves us closer to equality, dignity, and shared progress.</p>
                   </div>
                 </div>
               </div>
@@ -321,7 +321,6 @@ export default function Home() {
                 {[
                   { text: "Valid driver's license (2+ years experience)", icon: LicenseIcon },
                   { text: "Clean driving record", icon: CheckIcon },
-                  { text: "Reliable vehicle (2010 or newer)", icon: CarIcon },
                   { text: "Smartphone with data plan", icon: PhoneIcon },
                 ].map((item) => (
                   <li key={item.text} className="flex items-center gap-3">

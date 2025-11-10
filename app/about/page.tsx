@@ -48,21 +48,17 @@ export default function AboutPage() {
             <section className="mt-12 grid lg:grid-cols-2 gap-6">
                 <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-transparent p-6">
                     <h2 className="text-xl font-semibold">Vision</h2>
-                    <p className="mt-3 text-sm text-white/80">A city where every woman travels and works with confidence, served by a professional network of women drivers powering inclusive growth.</p>
-                    <ul className="mt-4 space-y-2 text-sm text-white/75 list-disc list-inside">
-                        <li>Set the safety standard for rides in Kigali</li>
-                        <li>Unlock dignified income for thousands of women</li>
-                        <li>Champion respect in everyday mobility</li>
-                    </ul>
+                    <p className="mt-3 text-sm text-white/80">
+                        We envision a Rwanda where every woman moves freely, works confidently, and leads with purpose.
+                        A future where women drive change, redefining mobility, safety, and empowerment in every community they touch.
+                    </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-transparent p-6">
                     <h2 className="text-xl font-semibold">Mission</h2>
-                    <p className="mt-3 text-sm text-white/80">Train, equip, and support women drivers while delivering the safest, most reliable ride experience in Rwanda.</p>
-                    <ul className="mt-4 space-y-2 text-sm text-white/75 list-disc list-inside">
-                        <li>Rigorous vetting and defensive‑driving training</li>
-                        <li>24/7 human support and emergency partners</li>
-                        <li>Fair payouts, mentorship, and benefits</li>
-                    </ul>
+                    <p className="mt-3 text-sm text-white/80">
+                        At SheMoves, our mission is to empower women through safe mobility, meaningful employment, and community-driven opportunities.
+                        We train and employ women from diverse backgrounds to become professional drivers, giving them skills, independence, and dignity on and off the road.
+                    </p>
                 </div>
             </section>
 
