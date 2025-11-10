@@ -7,16 +7,16 @@ export default function Home() {
   return (
     <>
       <section className="section-gradient">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-20">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-14 pb-12 sm:pb-20">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="space-y-4 sm:space-y-6">
               <AnimatedHeroText
                 staticText="Safe rides that"
                 rotatingWords={["Empower", "Protect", "Inspire", "Connect"]}
                 endingText="women"
-                className="text-5xl md:text-6xl font-bold tracking-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
               />
-              <p className="text-black/70 dark:text-white/80 text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability day or night.</p>
+              <p className="text-black/70 dark:text-white/80 text-base sm:text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability day or night.</p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-black text-white px-6 py-3 text-sm font-medium hover:bg-black/90">Book a Ride</Link>
                 <Link href="/drive" className="inline-flex items-center justify-center rounded-lg border border-black/15 dark:border-white/20 px-6 py-3 text-sm font-medium hover:bg-white/5">Drive with SheMoves</Link>
