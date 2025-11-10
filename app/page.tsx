@@ -185,7 +185,7 @@ export default function Home() {
                   </div>
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                     <p className="text-sm font-semibold text-white mb-2">Differentiator</p>
-                    <p className="text-white/90 leading-relaxed">Unlike Uber/Bolt/Yego, SheMoves isn&apos;t just about transport it&apos;s about trust + empowerment.</p>
+                    <p className="text-white/90 leading-relaxed">Unlike other ride sharing, SheMoves isn&apos;t just about transport it&apos;s about trust + empowerment.</p>
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function Home() {
                     <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
                     <div>
                       <p className="font-semibold text-white mb-1">Community</p>
-                      <p className="text-white/90 text-sm leading-relaxed">Built for Kigali, by Kigali women, rooted in local culture.</p>
+                      <p className="text-white/90 text-sm leading-relaxed">Built for Kigali, by women, rooted in local culture.</p>
                     </div>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export default function Home() {
                       <div className="w-3 h-3 rounded-full bg-white/60"></div>
                       <p className="font-semibold text-white">Riders</p>
                     </div>
-                    <p className="text-white/90 text-sm leading-relaxed">Women (especially students, professionals, expats) who want a safer option, plus allies who support the mission.</p>
+                    <p className="text-white/90 text-sm leading-relaxed">Women who want a safer option, plus allies who support the mission.</p>
                   </div>
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                     <div className="flex items-center gap-3 mb-3">
