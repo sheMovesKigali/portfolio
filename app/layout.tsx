@@ -17,6 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: { template: "%s | SheMoves Kigali", default: "SheMoves Kigali Safe rides" },
   description: "Safe, reliable rides for women in Kigali. Join as a driver or ride today.",
+  icons: {
+    icon: '/images/2.png',
+    apple: '/images/2.png',
+  },
 };
 
 export default function RootLayout({
