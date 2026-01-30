@@ -20,6 +20,8 @@ interface BookingConfirmationEmailProps {
     rideDate?: string;
     rideTime?: string;
     specialRequests?: string;
+    estimatedFareRwf?: number;
+    estimatedDistanceKm?: number;
 }
 
 export const BookingConfirmationEmail = ({
@@ -31,6 +33,8 @@ export const BookingConfirmationEmail = ({
     rideDate,
     rideTime,
     specialRequests,
+    estimatedFareRwf,
+    estimatedDistanceKm,
 }: BookingConfirmationEmailProps) => {
     const rideTypeLabels: { [key: string]: string } = {
         standard: 'Standard Ride',
@@ -89,6 +93,16 @@ export const BookingConfirmationEmail = ({
 
                             <Text style={label}>Contact Number:</Text>
                             <Text style={value}>{phoneNumber}</Text>
+
+                            {estimatedFareRwf != null && (
+                                <>
+                                    <Text style={label}>Estimated Fare:</Text>
+                                    <Text style={value}>
+                                        {estimatedFareRwf.toLocaleString()} RWF
+                                        {estimatedDistanceKm != null && ` (~${estimatedDistanceKm} km · 2,000 RWF first km, then 1,500 RWF/km)`}
+                                    </Text>
+                                </>
+                            )}
 
                             {specialRequests && (
                                 <>

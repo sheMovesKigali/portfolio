@@ -28,3 +28,60 @@ body {
 .section-gradient {
   background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.0) 40%);
 }
+
+/* Google Places Autocomplete dropdown – match app dark theme + orange accents */
+.pac-container {
+  background: #171717 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  margin-top: 2px !important;
+  font-family: inherit !important;
+}
+
+.pac-item {
+  background: transparent !important;
+  color: rgba(237, 237, 237, 0.9) !important;
+  padding: 0.5rem 0.75rem !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  cursor: pointer !important;
+  line-height: 1.4 !important;
+}
+
+.pac-item:first-child {
+  border-top: none !important;
+}
+
+.pac-item:hover,
+.pac-item-selected {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #fef3c7 !important;
+}
+
+.pac-item-query {
+  color: inherit !important;
+  font-size: 0.875rem !important;
+}
+
+.pac-icon {
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+  margin-right: 0.5rem !important;
+}
+
+.pac-item:hover .pac-icon,
+.pac-item-selected .pac-icon {
+  opacity: 1;
+  filter: none;
+}
+
+/* "powered by Google" / logo area – keep dark, subtle */
+.pac-container .pac-logo::after,
+.pac-container::after {
+  background: #171717 !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.7rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}

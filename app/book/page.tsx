@@ -1,7 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import Script from "next/script";
 import Link from "next/link";
 import { ShieldIcon, CheckIcon } from "@/components/icons";
+
+const FIRST_KM_RWF = 2000;
+const ADDITIONAL_KM_RWF = 1500;
+
+function calculateFare(distanceKm: number): number {
+  if (distanceKm <= 1) return FIRST_KM_RWF;
+  return Math.round(FIRST_KM_RWF + (distanceKm - 1) * ADDITIONAL_KM_RWF);
+}
+
+/** Message Google Places can inject into the input on API error; we never save this as state */
+const GOOGLE_PLACES_ERROR_MSG = "Oops! Something went wrong.";
 
 type RideType = "wellness" | "standard" | "scheduled";
 
@@ -19,6 +31,16 @@ export default function BookPage() {
   const [generatedCode, setGeneratedCode] = useState("");
   const [error, setError] = useState("");
   const [loadingLocation, setLoadingLocation] = useState(false);
+  const [estimatedDistanceKm, setEstimatedDistanceKm] = useState<number | null>(null);
+  const [estimatedFareRwf, setEstimatedFareRwf] = useState<number | null>(null);
+  const [loadingFare, setLoadingFare] = useState(false);
+  const [fareError, setFareError] = useState<string | null>(null);
+  const [googleMapsReady, setGoogleMapsReady] = useState(false);
+  const [placesScriptError, setPlacesScriptError] = useState(false);
+  const pickupInputRef = useRef<HTMLInputElement>(null);
+  const dropoffInputRef = useRef<HTMLInputElement>(null);
+  const pickupAutocompleteRef = useRef<{ addListener: (e: string, fn: () => void) => void; getPlace: () => { formatted_address?: string } } | null>(null);
+  const dropoffAutocompleteRef = useRef<{ addListener: (e: string, fn: () => void) => void; getPlace: () => { formatted_address?: string } } | null>(null);
 
   const rideTypes = [
     {
@@ -50,6 +72,129 @@ export default function BookPage() {
     const random = Math.random().toString(36).substring(2, 8).toUpperCase();
     return `${prefix}-${random}`;
   };
+
+  const geocodeWithGoogle = async (address: string, apiKey: string): Promise<{ lat: number; lon: number } | null> => {
+    const res = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&region=rw&key=${apiKey}`
+    );
+    const data = await res.json();
+    if (data.status !== "OK" || !data.results?.[0]?.geometry?.location) return null;
+    const { lat, lng } = data.results[0].geometry.location;
+    return { lat, lon: lng };
+  };
+
+  const geocodeWithNominatim = async (address: string): Promise<{ lat: number; lon: number } | null> => {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`,
+      { headers: { "Accept-Language": "en" } }
+    );
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) return null;
+    const { lat, lon } = data[0];
+    return { lat: parseFloat(lat), lon: parseFloat(lon) };
+  };
+
+  const getFareEstimate = async () => {
+    if (!pickupLocation.trim() || !dropoffLocation.trim()) {
+      setFareError("Enter pickup and dropoff to get a fare estimate.");
+      return;
+    }
+    setLoadingFare(true);
+    setFareError(null);
+    setEstimatedDistanceKm(null);
+    setEstimatedFareRwf(null);
+    const googleKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    const geocode = googleKey
+      ? (addr: string) => geocodeWithGoogle(addr, googleKey)
+      : geocodeWithNominatim;
+
+    try {
+      const pickupCoords = await geocode(pickupLocation.trim());
+      if (googleKey) await new Promise((r) => setTimeout(r, 50));
+      const dropoffCoords = await geocode(dropoffLocation.trim());
+      if (!pickupCoords || !dropoffCoords) {
+        setFareError(
+          googleKey
+            ? "Could not find one or both addresses. Enable Geocoding API in Google Cloud, or select from suggestions."
+            : "Could not find one or both addresses. Try Google Maps key + Geocoding API, or use street addresses."
+        );
+        return;
+      }
+      const { lat: lat1, lon: lon1 } = pickupCoords;
+      const { lat: lat2, lon: lon2 } = dropoffCoords;
+      const res = await fetch(
+        `https://router.project-osrm.org/route/v1/driving/${lon1},${lat1};${lon2},${lat2}?overview=false`
+      );
+      const route = await res.json();
+      if (route.code !== "Ok" || !route.routes?.[0]) {
+        setFareError("Could not calculate route. Check addresses and try again.");
+        return;
+      }
+      const distanceMeters = route.routes[0].distance;
+      const distanceKm = Math.round((distanceMeters / 1000) * 10) / 10;
+      const fare = calculateFare(distanceKm);
+      setEstimatedDistanceKm(distanceKm);
+      setEstimatedFareRwf(fare);
+    } catch (e) {
+      console.error("Fare estimate error:", e);
+      setFareError("Unable to get fare estimate. You can still book; 2,000 RWF first km, then 1,500 RWF/km.");
+    } finally {
+      setLoadingFare(false);
+    }
+  };
+
+  useEffect(() => {
+    if (submitted) {
+      pickupAutocompleteRef.current = null;
+      dropoffAutocompleteRef.current = null;
+      return;
+    }
+    if (!googleMapsReady || typeof window === "undefined" || !window.google?.maps?.places || !pickupInputRef.current || !dropoffInputRef.current) return;
+    const { Autocomplete } = window.google.maps.places;
+    const options = { componentRestrictions: { country: "rw" } };
+    if (!pickupAutocompleteRef.current) {
+      const pickupAutocomplete = new Autocomplete(pickupInputRef.current, options);
+      pickupAutocomplete.addListener("place_changed", () => {
+        const place = pickupAutocomplete.getPlace();
+        if (place?.formatted_address && !place.formatted_address.includes(GOOGLE_PLACES_ERROR_MSG)) {
+          setPickupLocation(place.formatted_address);
+          setFareError(null);
+          setEstimatedDistanceKm(null);
+          setEstimatedFareRwf(null);
+        }
+      });
+      pickupAutocompleteRef.current = pickupAutocomplete;
+    }
+    if (!dropoffAutocompleteRef.current) {
+      const dropoffAutocomplete = new Autocomplete(dropoffInputRef.current, options);
+      dropoffAutocomplete.addListener("place_changed", () => {
+        const place = dropoffAutocomplete.getPlace();
+        if (place?.formatted_address && !place.formatted_address.includes(GOOGLE_PLACES_ERROR_MSG)) {
+          setDropoffLocation(place.formatted_address);
+          setFareError(null);
+          setEstimatedDistanceKm(null);
+          setEstimatedFareRwf(null);
+        }
+      });
+      dropoffAutocompleteRef.current = dropoffAutocomplete;
+    }
+    return () => {
+      pickupAutocompleteRef.current = null;
+      dropoffAutocompleteRef.current = null;
+    };
+  }, [googleMapsReady, submitted]);
+
+  // Never persist Google's error message in state (e.g. when safeframe fails or API errors)
+  useEffect(() => {
+    if (pickupLocation.includes(GOOGLE_PLACES_ERROR_MSG)) {
+      setPickupLocation("");
+      setFareError("Address suggestions are temporarily unavailable. Please type your full address (e.g. include Kigali). If you use an ad blocker, try allowing this site.");
+    }
+    if (dropoffLocation.includes(GOOGLE_PLACES_ERROR_MSG)) {
+      setDropoffLocation("");
+      setFareError("Address suggestions are temporarily unavailable. Please type your full address (e.g. include Kigali). If you use an ad blocker, try allowing this site.");
+    }
+  }, [pickupLocation, dropoffLocation]);
 
   const getCurrentLocation = async () => {
     if (!navigator.geolocation) {
@@ -92,16 +237,16 @@ export default function BookPage() {
 
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            setError("Location access denied. Please enable location permissions in your browser.");
+            setError("Location access denied. Enable location in your browser, or type your address above (e.g. Kimihurura, Kigali).");
             break;
           case error.POSITION_UNAVAILABLE:
-            setError("Location information is unavailable.");
+            setError("We couldn’t detect your location. Please type your address above (e.g. Kimihurura, Kigali).");
             break;
           case error.TIMEOUT:
-            setError("Location request timed out.");
+            setError("Location request timed out. Please type your address above (e.g. Kimihurura, Kigali).");
             break;
           default:
-            setError("An error occurred while getting your location.");
+            setError("We couldn’t get your location. Please type your address above (e.g. Kimihurura, Kigali).");
             break;
         }
       },
@@ -139,6 +284,8 @@ export default function BookPage() {
           rideDate: rideDate || undefined,
           rideTime: rideTime || undefined,
           specialRequests: specialRequests || undefined,
+          estimatedFareRwf: estimatedFareRwf ?? undefined,
+          estimatedDistanceKm: estimatedDistanceKm ?? undefined,
         }),
       });
 
@@ -197,6 +344,14 @@ export default function BookPage() {
                 <span className="text-white/70">Dropoff:</span>
                 <span className="font-medium">{dropoffLocation}</span>
               </div>
+              {estimatedFareRwf != null && estimatedDistanceKm != null && (
+                <div className="flex justify-between text-sm pt-2 border-t border-white/10">
+                  <span className="text-white/70">Estimated fare:</span>
+                  <span className="font-semibold text-amber-400">
+                    {estimatedFareRwf.toLocaleString()} RWF
+                  </span>
+                </div>
+              )}
               {rideType === "scheduled" && rideDate && (
                 <>
                   <div className="flex justify-between text-sm">
@@ -240,6 +395,9 @@ export default function BookPage() {
                   setRideTime("");
                   setSpecialRequests("");
                   setError("");
+                  setEstimatedDistanceKm(null);
+                  setEstimatedFareRwf(null);
+                  setFareError(null);
                 }}
                 className="flex-1 inline-flex items-center justify-center rounded-lg bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 font-medium"
               >
@@ -252,8 +410,21 @@ export default function BookPage() {
     );
   }
 
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   return (
     <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8">
+      {googleMapsApiKey && (
+        <Script
+          src={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`}
+          strategy="afterInteractive"
+          onLoad={() => setGoogleMapsReady(true)}
+          onError={() => {
+            setGoogleMapsReady(false);
+            setPlacesScriptError(true);
+          }}
+        />
+      )}
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -282,8 +453,8 @@ export default function BookPage() {
                         type="button"
                         onClick={() => setRideType(type.id)}
                         className={`p-4 rounded-lg border-2 text-left transition-all ${rideType === type.id
-                            ? "border-amber-500 bg-amber-500/10"
-                            : "border-white/10 hover:border-white/20"
+                          ? "border-amber-500 bg-amber-500/10"
+                          : "border-white/10 hover:border-white/20"
                           }`}
                       >
                         <div className="flex items-start gap-3">
@@ -323,16 +494,40 @@ export default function BookPage() {
                 )}
 
                 {/* Location Fields */}
+                {placesScriptError && (
+                  <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-2 text-sm text-amber-700 dark:text-amber-400">
+                    Address suggestions are unavailable. Please type your full address (e.g. include &quot;Kigali&quot;). If you set up Google Maps, enable &quot;Maps JavaScript API&quot; and &quot;Places API&quot; in Google Cloud Console.
+                  </div>
+                )}
                 <div>
                   <label className="block text-sm font-medium mb-2">Pickup Location</label>
                   <div className="relative">
                     <input
+                      ref={pickupInputRef}
                       type="text"
                       value={pickupLocation}
-                      onChange={(e) => setPickupLocation(e.target.value)}
-                      placeholder="Enter pickup address or landmark"
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        if (v.includes(GOOGLE_PLACES_ERROR_MSG)) {
+                          setPickupLocation("");
+                          setFareError("Address suggestions are temporarily unavailable. Please type your full address (e.g. include Kigali). If you use an ad blocker, try allowing this site.");
+                          return;
+                        }
+                        setPickupLocation(v);
+                        setFareError(null);
+                        setEstimatedDistanceKm(null);
+                        setEstimatedFareRwf(null);
+                      }}
+                      placeholder="Start typing address (e.g. Kigali Heights)"
                       className="w-full p-3 pr-12 rounded-lg border border-white/10 bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500"
                       required
+                      autoComplete="off"
+                      onBlur={() => {
+                        if (pickupInputRef.current?.value?.includes(GOOGLE_PLACES_ERROR_MSG)) {
+                          setPickupLocation("");
+                          setFareError("Address suggestions are temporarily unavailable. Please type your full address (e.g. include Kigali). If you use an ad blocker, try allowing this site.");
+                        }
+                      }}
                     />
                     <button
                       type="button"
@@ -355,24 +550,82 @@ export default function BookPage() {
                     </button>
                   </div>
                   <p className="text-xs text-white/60 mt-1">
-                    Click the location icon to use your current location
+                    {googleMapsApiKey ? "Type an address for suggestions, or click the location icon for current location" : "Click the location icon to use your current location"}
                   </p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-2">Dropoff Location</label>
                   <input
+                    ref={dropoffInputRef}
                     type="text"
                     value={dropoffLocation}
-                    onChange={(e) => setDropoffLocation(e.target.value)}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      if (v.includes(GOOGLE_PLACES_ERROR_MSG)) {
+                        setDropoffLocation("");
+                        setFareError("Address suggestions are temporarily unavailable. Please type your full address (e.g. include Kigali). If you use an ad blocker, try allowing this site.");
+                        return;
+                      }
+                      setDropoffLocation(v);
+                      setFareError(null);
+                      setEstimatedDistanceKm(null);
+                      setEstimatedFareRwf(null);
+                    }}
                     placeholder={
                       rideType === "wellness"
                         ? "Your destination (kept private)"
-                        : "Enter destination address or landmark"
+                        : "Start typing address (e.g. Kigali Heights)"
                     }
                     className="w-full p-3 rounded-lg border border-white/10 bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500"
                     required
+                    autoComplete="off"
+                    onBlur={() => {
+                      if (dropoffInputRef.current?.value?.includes(GOOGLE_PLACES_ERROR_MSG)) {
+                        setDropoffLocation("");
+                        setFareError("Address suggestions are temporarily unavailable. Please type your full address (e.g. include Kigali). If you use an ad blocker, try allowing this site.");
+                      }
+                    }}
                   />
+                </div>
+
+                {/* Fare Estimate */}
+                <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+                  <p className="text-sm font-semibold text-amber-700 dark:text-amber-400 mb-2">See how much you&apos;ll pay</p>
+                  <p className="text-xs text-white/70 mb-3">Transparent pricing: 2,000 RWF first km, then 1,500 RWF per km. No surge, no booking fees.</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={getFareEstimate}
+                      disabled={loadingFare || !pickupLocation.trim() || !dropoffLocation.trim()}
+                      className="inline-flex items-center gap-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {loadingFare ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" aria-hidden>
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          Calculating…
+                        </>
+                      ) : (
+                        "Get fare estimate"
+                      )}
+                    </button>
+                    {estimatedFareRwf != null && estimatedDistanceKm != null && (
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-lg font-bold text-amber-600 dark:text-amber-400">
+                          {estimatedFareRwf.toLocaleString()} RWF
+                        </span>
+                        <span className="text-sm text-white/70">
+                          ({estimatedDistanceKm} km · 2,000 + 1,500/km after 1st)
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  {fareError && (
+                    <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">{fareError}</p>
+                  )}
                 </div>
 
                 {/* Scheduled Ride DateTime */}
@@ -447,8 +700,8 @@ export default function BookPage() {
 
                 {/* Error Message */}
                 {error && (
-                  <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
-                    <p className="text-red-500 text-sm text-center">{error}</p>
+                  <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                    <p className="text-amber-700 dark:text-amber-400 text-sm text-center">{error}</p>
                   </div>
                 )}
 
@@ -492,6 +745,25 @@ export default function BookPage() {
 
           {/* Info Sidebar */}
           <div className="space-y-6">
+            <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 backdrop-blur-xl p-6">
+              <h3 className="text-xl font-bold mb-2">Your Fare</h3>
+              <p className="text-sm text-white/70 mb-4">2,000 RWF first km, then 1,500 RWF per km. No surge, no booking fees.</p>
+              {estimatedFareRwf != null && estimatedDistanceKm != null ? (
+                <div className="p-4 rounded-xl bg-black/20 border border-amber-500/20">
+                  <p className="text-2xl font-bold text-amber-500 mb-1">
+                    {estimatedFareRwf.toLocaleString()} RWF
+                  </p>
+                  <p className="text-sm text-white/70">
+                    ~{estimatedDistanceKm} km · What you see is what you pay
+                  </p>
+                </div>
+              ) : (
+                <p className="text-sm text-white/60">
+                  Enter pickup and dropoff, then tap &quot;Get fare estimate&quot; in the form to see your fare.
+                </p>
+              )}
+            </div>
+
             <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
               <h3 className="text-xl font-bold mb-4">What to Expect</h3>
               <div className="space-y-3 text-sm">

@@ -20,6 +20,8 @@ interface BookingNotificationEmailProps {
     rideDate?: string;
     rideTime?: string;
     specialRequests?: string;
+    estimatedFareRwf?: number;
+    estimatedDistanceKm?: number;
 }
 
 export const BookingNotificationEmail = ({
@@ -31,6 +33,8 @@ export const BookingNotificationEmail = ({
     rideDate,
     rideTime,
     specialRequests,
+    estimatedFareRwf,
+    estimatedDistanceKm,
 }: BookingNotificationEmailProps) => {
     const rideTypeLabels: { [key: string]: string } = {
         standard: 'Standard Ride',
@@ -99,6 +103,16 @@ export const BookingNotificationEmail = ({
                                 <>
                                     <Text style={label}>Scheduled Time:</Text>
                                     <Text style={value}>{rideTime}</Text>
+                                </>
+                            )}
+
+                            {estimatedFareRwf != null && (
+                                <>
+                                    <Text style={label}>Estimated Fare:</Text>
+                                    <Text style={value}>
+                                        {estimatedFareRwf.toLocaleString()} RWF
+                                        {estimatedDistanceKm != null && ` (~${estimatedDistanceKm} km)`}
+                                    </Text>
                                 </>
                             )}
 

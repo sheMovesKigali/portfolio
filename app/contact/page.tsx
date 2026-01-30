@@ -95,7 +95,7 @@ export default function ContactPage() {
                     <h2 className="text-lg font-semibold">Get in touch</h2>
                     <div className="mt-4 space-y-3 text-sm text-white/80">
                         <p><span className="font-medium text-white">Email:</span> shemoveskigali@gmail.com</p>
-                        <p><span className="font-medium text-white">Phone:</span> +250 793 146 889</p>
+                        <p><span className="font-medium text-white">Phone:</span> +250 788 325 340</p>
                         <p><span className="font-medium text-white">Address:</span> KG 7 Ave, Kigali, Rwanda</p>
                     </div>
                     <div className="mt-6 h-40 rounded-lg overflow-hidden border border-white/10">

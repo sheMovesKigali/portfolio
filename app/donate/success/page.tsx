@@ -105,22 +105,6 @@ function DonateSuccessContent() {
           </p>
           <div className="flex justify-center gap-3 mt-4 flex-wrap">
             <a
-              href="https://twitter.com/intent/tweet?text=I%20just%20donated%20to%20SheMoves%20Kigali!%20Join%20me%20in%20supporting%20women%20drivers.&url=https://shemoveskigali.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm transition-colors"
-            >
-              Share on X
-            </a>
-            <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://shemoveskigali.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm transition-colors"
-            >
-              Share on Facebook
-            </a>
-            <a
               href="https://www.instagram.com/shemoveskigali?igsh=ZGRtYXE0NGFsZTJp&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
@@ -129,7 +113,7 @@ function DonateSuccessContent() {
               Follow on Instagram
             </a>
             <a
-              href="https://www.linkedin.com/company/shemoves-cbc/"
+              href="https://www.linkedin.com/company/shemoves-cbc/posts/?feedView=all"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm transition-colors"

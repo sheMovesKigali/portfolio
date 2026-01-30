@@ -84,7 +84,7 @@ export default function DonatePage() {
   const [showPayment, setShowPayment] = useState(false);
 
   const presetAmounts: Record<Currency, number[]> = {
-    RWF: [10000, 25000, 50000, 100000, 250000],
+    RWF: [10000, 30000, 50000, 100000, 300000],
     USD: [10, 25, 50, 100, 250],
     EUR: [10, 20, 50, 100, 200],
   };

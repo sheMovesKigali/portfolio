@@ -14,7 +14,7 @@ export default function Footer() {
                         <h3 className="text-sm font-semibold">Contact</h3>
                         <ul className="mt-3 space-y-1 text-xs text-white/70">
                             <li>Email: <a href="mailto:nshutikarake.nk@gmail.com" className="underline decoration-white/30 hover:decoration-white">shemoveskigali@gmail.com</a></li>
-                            <li>Phone: <a href="tel:+250 793 146 889" className="underline decoration-white/30 hover:decoration-white">+250 793 146 889</a></li>
+                            <li>Phone: <a href="tel:+250 788 325 340" className="underline decoration-white/30 hover:decoration-white">+250 788 325 340</a></li>
                             <li>Address: KG 7 Ave, Kigali, Rwanda</li>
                         </ul>
                     </div>
@@ -22,10 +22,8 @@ export default function Footer() {
                     <div>
                         <h3 className="text-sm font-semibold">Follow</h3>
                         <div className="mt-3 flex gap-3 text-xs">
-                            <Link href="https://x.com/shemoveskigali" target="_blank" className="rounded-md border border-white/15 px-3 py-1 hover:bg-white/5">X</Link>
                             <Link href="https://www.instagram.com/shemoveskigali" target="_blank" className="rounded-md border border-white/15 px-3 py-1 hover:bg-white/5">Instagram</Link>
-                            <Link href="https://www.facebook.com/shemoveskigali" target="_blank" className="rounded-md border border-white/15 px-3 py-1 hover:bg-white/5">Facebook</Link>
-                            <Link href="https://www.linkedin.com/company/shemoveskigali" target="_blank" className="rounded-md border border-white/15 px-3 py-1 hover:bg-white/5">LinkedIn</Link>
+                            <Link href="https://www.linkedin.com/company/shemoveskigalicbc" target="_blank" className="rounded-md border border-white/15 px-3 py-1 hover:bg-white/5">LinkedIn</Link>
                         </div>
                     </div>
                 </div>

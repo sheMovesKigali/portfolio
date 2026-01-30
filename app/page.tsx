@@ -13,8 +13,8 @@ export default function Home() {
               <AnimatedHeroText
                 staticText="Safe rides that"
                 rotatingWords={["Empower", "Protect", "Inspire", "Connect"]}
-                endingText="women"
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
+                endingText="Marginalized women"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight leading-tight"
               />
               <p className="text-black/70 dark:text-white/80 text-base sm:text-lg max-w-prose">SheMoves connects riders with trained women drivers. Safety, respect, and reliability day or night.</p>
               <div className="flex flex-col sm:flex-row gap-3">
@@ -40,7 +40,7 @@ export default function Home() {
             {/* Card 1 */}
             <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
               <div className="flex items-baseline justify-between">
-                <p className="text-3xl font-bold">50+</p>
+                <p className="text-3xl font-bold">20+</p>
                 <span className="text-xs text-green-400">+8% m/m</span>
               </div>
               <p className="mt-1 text-sm text-white/70">Active women drivers</p>
@@ -293,11 +293,11 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="border-l-4 border-white pl-6">
                   <p className="text-white/80 italic">&ldquo;SheMoves gave me the freedom to work around my children&apos;s schedule while earning more than my previous job. The safety features give me confidence every day.&rdquo;</p>
-                  <p className="mt-2 font-semibold">— Grace M., Driver since 2023</p>
+                  <p className="mt-2 font-semibold">— Grace M., Driver</p>
                 </div>
                 <div className="border-l-4 border-white pl-6">
                   <p className="text-white/80 italic">&ldquo;I love being part of a community that empowers women. The training and support helped me become a confident driver.&rdquo;</p>
-                  <p className="mt-2 font-semibold">— Alice K., Driver since 2022</p>
+                  <p className="mt-2 font-semibold">— Alice K., Driver</p>
                 </div>
               </div>
             </div>

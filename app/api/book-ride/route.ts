@@ -26,7 +26,9 @@ export async function POST(request: NextRequest) {
       email,
       rideDate,
       rideTime,
-      specialRequests
+      specialRequests,
+      estimatedFareRwf,
+      estimatedDistanceKm,
     } = await request.json();
 
     // Validate required fields
@@ -46,7 +48,9 @@ export async function POST(request: NextRequest) {
       phoneNumber,
       rideDate,
       rideTime,
-      specialRequests
+      specialRequests,
+      estimatedFareRwf,
+      estimatedDistanceKm,
     }));
 
     const adminEmailHtml = await render(BookingNotificationEmail({
@@ -57,7 +61,9 @@ export async function POST(request: NextRequest) {
       phoneNumber,
       rideDate,
       rideTime,
-      specialRequests
+      specialRequests,
+      estimatedFareRwf,
+      estimatedDistanceKm,
     }));
 
     // Send confirmation email to customer (if email provided)
